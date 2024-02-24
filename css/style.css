@@ -1,0 +1,96 @@
+*,
+*::after,
+*::before{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  color: #000;
+}
+
+img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+body{
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+header{
+  width: 100%;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(196, 196, 196, 1);
+}
+
+.content{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  row-gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+.card{
+  padding: 1.5rem;
+  border: 1px solid rgba(161, 161, 161, 1);
+  text-align: center;
+  position: relative;
+}
+
+.img{
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 1rem auto;
+}
+.name {
+  font-size: 1.5rem;
+}
+.info {
+  margin-bottom: 0.6rem;
+}
+.info p {
+  display: inline;
+}
+.info .separator {
+  margin: 0 5px;
+}
+.country{
+  margin-bottom: 0.6rem;
+}
+
+.edit,
+.delete{
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  opacity: 0;
+}
+
+.edit img,
+.delete img{
+  filter: brightness(0) saturate(100%) invert(68%) sepia(16%) saturate(21%) hue-rotate(324deg) brightness(93%) contrast(86%);
+}
+
+.delete{
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.card:hover{
+  box-shadow: 0px 0px 8px 0px rgba(161, 161, 161, 1), inset 0px 0px 8px 0px rgba(161, 161, 161, 1);
+}
+
+.card:hover .edit,
+.card:hover .delete {
+  opacity: 1;
+}
