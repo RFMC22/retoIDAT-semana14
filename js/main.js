@@ -5,7 +5,7 @@ const deleteDog = async (id, card, name) => {
     const response = await axios.delete(`http://localhost:3000/cats/${id}`);
     if (response.status === 200) {
       card.remove();
-      console.log(`Se elimino a ${name} correctamente`);
+      console.log(`Se eliminó a ${name} correctamente`);
     }
   } catch (error) {
     console.error(`Error al eliminar a ${name}`, error);
@@ -14,7 +14,23 @@ const deleteDog = async (id, card, name) => {
 
 const addEventDelete = (deleteButton, id, card, name) => {
   deleteButton.addEventListener('click', async () => {
-    await deleteDog(id, card, name);
+    const modal = document.getElementById('modal');
+    const confirmButton = document.getElementById('confirm-delete');
+    const cancelButton = document.getElementById('cancel-delete');
+
+    modal.style.display = 'block';
+
+    const confirmDelete = async () => {
+      await deleteDog(id, card, name);
+      modal.style.display = 'none';
+    };
+
+    const cancelDelete = () => {
+      modal.style.display = 'none';
+    };
+
+    confirmButton.addEventListener('click', confirmDelete);
+    cancelButton.addEventListener('click', cancelDelete);
   });
 };
 
@@ -22,7 +38,7 @@ const createElements = dogs => {
   const main = document.querySelector('.content');
 
   dogs.forEach(dog => {
-    const {img,name,telefono,pais,descripcion,id} = dog;
+    const { img, name, telefono, pais, descripcion, id } = dog;
     const card = document.createElement('div');
     card.classList.add('card');
     card.innerHTML = `
@@ -45,24 +61,26 @@ const createElements = dogs => {
       </div>
       <p class="country">${pais}</p>
       <p>${descripcion}</p>
-    `
+    `;
+
     const deleteButton = card.querySelector('.delete');
-    addEventDelete(deleteButton, id, card, name)
+    addEventDelete(deleteButton, id, card, name);
 
     main.appendChild(card);
   });
-}
+};
 
 const init = () => {
   document.addEventListener('DOMContentLoaded', async () => {
     try {
       const response = await axios.get('http://localhost:3000/cats');
-      const {data}   = response;
+      const { data } = response;
       createElements(data);
     } catch (error) {
       console.error('Error al obtener los datos de la API:', error);
     }
   });
-}
+};
+
 
 init();
